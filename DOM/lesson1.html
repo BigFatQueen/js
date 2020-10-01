@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+
+	<p id="page">Helo world</p>
+	<p id="myans" style="color: red;"></p>
+	<div id="mypage">
+		<p class="pager" title="hello title">Helo world</p>
+		<p class="pager">Welcome to Javascript</p>
+	</div>
+	
+</body>
+<script>
+	// usage of innerHTML
+	// var ans=document.getElementById('page').innerHTML;
+	// console.log(ans);
+
+	// document.getElementById('myans').innerHTML=ans;
+
+	//finding element of html using dom
+	// var ans=document.getElementsByTagName('p');
+	// console.log(ans[0].innerHTML);
+
+	//using queryselector of dom
+
+	// var ans=document.querySelector('#page').innerHTML;
+	// document.querySelector('#myans').innerHTML=ans;
+
+	var ans=document.getAttribute('p');// only return first element
+	console.log(typeof ans);
+	document.write(`<h1>${ans}</h1>`);//
+
+
+</script>
+</html>

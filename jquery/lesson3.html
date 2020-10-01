@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="jquery.min.js"></script>
+</head>
+<body>
+
+	<table border="1" cellpadding="20px">
+		<thead>
+			<tr>
+				<td>NO</td>
+				<td>Name</td>
+				<td>Email</td>
+				<td>Address</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>Aung Chan Oo</td>
+				<td>chanoo@gamil.com</td>
+				<td>Yangon</td>
+			</tr>
+
+			
+		</tbody>
+	</table>
+	<button class="btn-click">Add MY List</button>
+
+	<script>
+		$(document).ready(function(){
+			showdata();
+			
+			$('.btn-click').click(function(){
+				showdata();
+				var list={
+				'student':[],
+				'teacher':[],
+			};
+			var studentObject=[
+								{name:'aung chan oo1',
+								email:'chanoo1@gamil.com',
+								address:'yangon1'
+								},
+								{name:'aung chan oo2',
+								email:'chanoo2@gamil.com',
+								address:'yangon2'
+								},
+								{name:'aung chan oo3',
+								email:'chanoo3@gamil.com',
+								address:'yangon3'
+								}
+							];
+
+			var teacherObject=[
+								{name:'Daw ye ye hlaing1',
+								email:'chanoo1@gamil.com',
+								address:'yangon1',
+								subject:'math'
+								},
+								{name:'Daw ye ye hlaing2',
+								email:'chanoo2@gamil.com',
+								address:'yangon2',
+								subject:'english'
+								},
+								{name:'Daw ye ye hlaing3',
+								email:'chanoo3@gamil.com',
+								address:'yangon3',
+								subject:'physics'
+								}
+							];
+
+							list['student']=studentObject;
+							list['teacher']=teacherObject;
+			
+								let stringObj=JSON.stringify(list);
+								console.log(stringObj);
+								localStorage.setItem('school',stringObj);
+
+
+								
+
+			})// no reused
+
+			function showdata(){
+					// alert('helo');
+					let stringObj=localStorage.getItem('school');
+					// console.log(stringObj);
+
+					let arrayObj=JSON.parse(stringObj);
+
+					// console.log(arrayObj);
+					$.each(arrayObj,function(key,value){
+						if(key=='teacher'){
+							$.each(value,function(ke,va){
+							console.log(va.subject);
+							})
+						}
+						
+					})
+
+				}// reused function
+
+
+		})
+
+
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+</body>
+</html>

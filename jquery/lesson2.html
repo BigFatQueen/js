@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.right{
+			color:green;
+			font-style: italic;
+			border: 1px solid #000;
+		}
+
+		.wrong{
+			color:red;
+		}
+	</style>
+
+</head>
+<body>
+
+	<h1>Gussing Random number!</h1>
+	<input type="text" name="number">
+	<button class="btn" type="button">Guess</button>
+
+	<p class="result"></p>
+	<p class="count"></p>
+
+
+
+	<script src="jquery.min.js"></script>
+	<script>
+		// 21-30
+		$(document).ready(function(){
+			var number=Math.random()*(30-21)+21;
+			var random=Math.round(number);
+			var count=1;
+			console.log("random num "+ random);
+
+			$('.btn').click(function(){
+				var num=$('input[name="number"]').val();
+				
+					if(num > random){
+						
+						$('input[name="number"]').val('');
+						$('.result').html('yours is greater than mine');
+						$('.result').addClass('wrong');
+						
+					}
+					if(num < random){
+
+						$('input[name="number"]').val('');
+						$('.result').html('yours is less than mine');
+						$('.result').addClass('wrong');
+						
+					}
+
+					if(num == random){
+						$('input[name="number"]').val('');
+						$('.result').html('you r right');
+						$('.result').addClass('right');
+						$('.count').html(`Right at :${count}`);
+					}
+
+					count++;
+			});
+		});
+		
+	</script>
+</body>
+</html>

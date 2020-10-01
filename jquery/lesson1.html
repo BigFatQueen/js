@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- jquery file linked -->
+	<script src="jquery.min.js"></script>
+
+
+		
+</head>
+<body>
+
+	<h1 id="title"></h1>
+	English:<input type="text" name="" id="english"><br/>
+	Math:<input type="text" name="" id="math"><br/>
+	Physics:<input type="text" name="" id="physics"><br/>
+
+	Result: <span id="result" style="color: red;"></span>
+
+	<br/>
+
+	
+	<button id="check-btn" type="button">Check</button>
+
+	<script>
+
+		var title=document.getElementById('title');
+		title.innerHTML="Checking";
+		
+		$(document).ready(function(){
+			$('#check-btn').click(function(){
+				// alert('helo');
+				var eng=$('#english').val();
+				var math=$('#math').val();
+				var physics=$('#physics').val();
+				var text='fly color are';
+				if(eng>=40 && math>=40 && physics>=40){
+					// 
+					if(eng>=80 || math>=80 || physics>=80){
+						// 
+						//fly colors are
+						if(eng>=80){
+							text+=" english";
+						}
+						if(math>=80){
+							text+=' math';
+						}
+						if(physics>=80){
+							text+=' physics';
+						}
+						// console.log(text);
+					}else{
+						text='you passed';
+					}
+
+
+				}else{
+					text='you failed';
+				}
+
+				$('#result').html(text);
+
+			})
+		})
+
+		
+
+		
+	</script>
+	
+</body>
+</html>
