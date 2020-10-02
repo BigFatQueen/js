@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Student Registration</title>
+	<style>
+		.edit{
+			background-color:yellow;
+			color: #000;
+		}
+		.delete{
+			background: red;
+			color: #fff;
+		}
+	</style>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#edit_form').hide();
+
+			$('#btnUpdate').click(function(){
+				// alert("elo");
+				var id=$('#oldid').val();
+				var name=$('#edit_form input[id="name"]').val();
+				var age=$('#edit_form input[id="age"]').val();
+				var address=$('#edit_form input[id="address"]').val();
+				var gender=$("#edit_form input[name='gender']:checked").val();
+
+				var studentlist=localStorage.getItem('student');
+				var studentObj=JSON.parse(studentlist);
+				studentObj[id].name=name;
+				studentObj[id].age=age;
+				studentObj[id].address=address;
+				studentObj[id].gender=gender;
+
+				studentlist=JSON.stringify(studentObj);
+				localStorage.setItem('student',studentlist);
+				showdata();
+			})
+
+			$('tbody').on('click','.btn_edit',function(){
+				$('#reg_form').hide();
+				$('#edit_form').show();
+				var id=$(this).data('id');
+
+				var studentlist=localStorage.getItem('student');//S
+				var studentObj=JSON.parse(studentlist);
+				// console.log(studentObj);
+				var editArr=studentObj[id];
+				var name=editArr.name;
+				var age=editArr.age;
+				var address=editArr.address;
+				var gender=editArr.gender;
+
+				$('#edit_form input[id="name"]').val(name);
+				$('#edit_form input[id="age"]').val(age);
+				$('#edit_form input[id="address"]').val(address);
+				$('#edit_form input[id="oldid"]').val(id);
+
+				if(gender == 'female'){
+					$('#edit_form input[value="female"]').attr('checked',true);
+				}else{
+					$('#edit_form input[value="male"]').attr('checked',true);
+				}
+
+				$('#btnUpdate').attr('data-id',id);
+
+				
+			})
+
+			$('tbody').on('click','.btn_delete',function(){
+				var id=$(this).data('id');
+				console.log(id);
+				var studentlist=localStorage.getItem('student');//S
+				var studentObj=JSON.parse(studentlist);
+				studentObj.splice(id,1);
+				studentlist=JSON.stringify(studentObj);
+				localStorage.setItem('student',studentlist);
+				showdata();
+
+			})
+
+
+
+		
+
+			showdata();
+			//reg
+			$("#btnRegister").click(function(){
+				var name=$("#name").val();
+				var age=$("#age").val();
+				var address=$("#address").val();
+				var gender=$("input[name='gender']:checked").val();
+
+				//console.log(gender);
+
+
+				var student={
+					name:name,
+					age:age,
+					address:address,
+					gender:gender,
+				
+				}
+				//console.log(student)
+				var studentlist=localStorage.getItem('student');
+				var studentArray;
+				if(studentlist==null){
+					studentArray=[];
+				}else{
+					studentArray=JSON.parse(studentlist);
+				}
+
+				studentArray.push(student);
+				var studentstring=JSON.stringify(studentArray);
+				localStorage.setItem('student', studentstring);
+				showdata();
+			})
+
+			//show table
+
+			function showdata(){
+				var studentlist=localStorage.getItem("student");
+				//console.log(typeof(studentlist));
+				if(studentlist){
+					var studentArray=JSON.parse(studentlist);
+					//console.log(studentArray);
+					var j=1;
+					var html="";
+					$.each(studentArray,function(i,v){
+
+						html+=`<tr>
+						<td>${j++}</td>
+						<td>${v.name}</td>
+						<td>${v.age}</td>
+						<td>${v.address}</td>
+						<td>${v.gender}</td>
+						<td>
+						<button id="btn_edit" class="btn_edit edit" data-id="${i}">edit</button>
+						<button id="btn_delete" class="btn_delete delete"
+						 data-id="${i}">Delete</button>
+						</td>
+						</tr>`
+
+					})
+					//console.log(html);
+					$("tbody").html(html);
+				}
+			}
+
+
+			
+
+		})
+	</script>
+</head>
+<body>
+
+	<div id="reg_form">
+		<h3>Student Register Form</h3>
+		Name:<input type="text" id="name"><br>
+		Age:<input type="text" id="age"><br>
+		Address:<input type="text" id="address"><br>
+		Gender:<br>
+		Male:<input type="radio" name="gender" id="male" value="male">
+		FeMale:<input type="radio" name="gender" id="female" value="female"><br>
+		<button id="btnRegister"> Register</button>
+	</div>
+
+
+
+
+	<div id="edit_form">
+		<h3>Student Update Form</h3>
+		<input type="text" id="oldid">
+		Name:<input type="text" id="name"><br>
+		Age:<input type="text" id="age"><br>
+		Address:<input type="text" id="address"><br>
+		Gender:<br>
+		Male:<input type="radio" name="gender" id="male" value="male">
+		FeMale:<input type="radio" name="gender" id="female" value="female"><br>
+		<button id="btnUpdate"> Update</button>
+	</div>
+
+	
+	<div id="mytable">
+		<h3>Student Table</h3>
+		<table border="1" cellpadding="10" style="">
+			<thead>
+				<th>No</th>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Address</th>
+				<th>gender</th>
+				<th>Action</th>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>

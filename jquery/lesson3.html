@@ -5,6 +5,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<script src="jquery.min.js"></script>
+	<style>
+		.edit{
+			background-color:yellow;
+			color: #000;
+		}
+		.delete{
+			background: red;
+			color: #fff;
+		}
+	</style>
 </head>
 <body>
 
@@ -15,15 +25,11 @@
 				<td>Name</td>
 				<td>Email</td>
 				<td>Address</td>
+				<td>Action</td>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>1</td>
-				<td>Aung Chan Oo</td>
-				<td>chanoo@gamil.com</td>
-				<td>Yangon</td>
-			</tr>
+			
 
 			
 		</tbody>
@@ -92,17 +98,38 @@
 
 					let arrayObj=JSON.parse(stringObj);
 
+					let html=''; let i=1;
+
 					// console.log(arrayObj);
 					$.each(arrayObj,function(key,value){
-						if(key=='teacher'){
+						if(key=='student'){
 							$.each(value,function(ke,va){
-							console.log(va.subject);
+							html+=`<tr>
+									<td>${i++}</td>
+									<td>${va.name}</td>
+									<td>${va.email}</td>
+									<td>${va.address}</td>
+									<td><button class="edit" data-id=${ke}>
+									     Edit </button>
+										<button class="delete"
+										data-id=${ke}>
+										Delete</button>
+									</td>
+								</tr>`;
 							})
+							$('tbody').html(html);
 						}
 						
 					})
 
 				}// reused function
+
+				// action vm.$delete(key)
+
+				$('.delete').click(function(){
+					alert('helo');
+				})
+
 
 
 		})
